@@ -16,6 +16,13 @@ class ProfileHeaderView: UIView {
     private var setStatus = UITextField()
     private var statusText: String?
     
+    //Создаем константы для их использования во фреймах
+    
+    private enum Constants {
+        static let sideInset: CGFloat = 16.0
+    }
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -40,7 +47,7 @@ class ProfileHeaderView: UIView {
         showStatus.layer.shadowRadius = 4.0
         showStatus.layer.shadowOpacity = 0.7
         showStatus.layer.shadowColor = UIColor.black.cgColor
-        showStatus.layer.cornerRadius = 12
+        showStatus.layer.cornerRadius = 14
         //добавляю свечение кнопке, чтобы было видно, когда нажимаю ее
         showStatus.showsTouchWhenHighlighted = true
         
@@ -87,28 +94,54 @@ class ProfileHeaderView: UIView {
         currentStatus.text = statusText
     }
     @objc func statusTextChanged(_ textField: UITextField) {
-        statusText = setStatus.text ?? "No status"
+        if textField.text != "" {
+            statusText = textField.text
+        } else {
+            statusText = "No status"
+        }
+    }
+    override func layoutSubviews() {
+        
+        setupShowStatus()
+        setupNickName()
+        setupCurrentStatus()
+        setupUserImage()
+        setupSetStatus()
+
     }
     
+    //Создаем отдельные методы для декомпозиции, которые потом будем использовать в layoutSubviews()
     
-    override func layoutSubviews() {
-        showStatus.frame = CGRect( x: self.safeAreaInsets.left + 16,
+    private func setupShowStatus() {
+        showStatus.frame = CGRect( x: self.safeAreaInsets.left + Constants.sideInset,
                                   y: self.safeAreaInsets.top + 150,
                                   width: self.bounds.width - self.safeAreaInsets.left - self.safeAreaInsets.right - 16*2,
                                   height: 50)
+    }
+    
+    private func setupNickName() {
         nickName.frame = CGRect(x: self.safeAreaInsets.left + 132,
-                                y: self.safeAreaInsets.top + 16,
+                                y: self.safeAreaInsets.top + Constants.sideInset,
                                 width: self.bounds.width,
                                 height: 50)
+    }
+    
+    private func setupCurrentStatus() {
         currentStatus.frame = CGRect(x: self.safeAreaInsets.left + 132,
                                 y: self.safeAreaInsets.top + 60,
                                 width: self.bounds.width,
                                 height: 50)
-        userImage.frame = CGRect(x: self.safeAreaInsets.left + 16,
-                                 y: self.safeAreaInsets.top + 16,
+    }
+    
+    private func setupUserImage() {
+        userImage.frame = CGRect(x: self.safeAreaInsets.left + Constants.sideInset,
+                                 y: self.safeAreaInsets.top + Constants.sideInset,
                                  width: 100,
                                  height: 100)
         userImage.layer.cornerRadius = userImage.frame.size.height/2
+    }
+    
+    private func setupSetStatus() {
         setStatus.frame = CGRect(x: self.safeAreaInsets.left + 132,
                                  y: showStatus.frame.minY - setStatus.bounds.height - 10,
                                  width: self.bounds.width - self.safeAreaInsets.left - self.safeAreaInsets.right - 148,
@@ -116,7 +149,4 @@ class ProfileHeaderView: UIView {
         setStatus.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: setStatus.frame.height))
         setStatus.leftViewMode = .always
     }
-    
 }
-
-
