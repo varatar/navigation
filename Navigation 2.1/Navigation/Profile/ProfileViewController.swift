@@ -11,19 +11,25 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    private var profileHeaderView = ProfileHeaderView()
+    //Создаем новую UIButton
+    private var newButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .lightGray
-        view.addSubview(profileHeaderView) 
-        // Do any additional setup after loading the view.
-    }
-
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
         
-        profileHeaderView.frame = view.frame
+        //Добавляем новую кнопку и даем ей рандомные настройки (т.к. в условии задачи не было конкретики)
+        view.addSubview(newButton)
+        newButton.translatesAutoresizingMaskIntoConstraints = false
+        newButton.backgroundColor = .black
+        newButton.setTitle("New button", for: .normal)
+        
+        //Добавляем констрейнты
+        let newButtonConstraints = [
+        newButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+        newButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+        newButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)]
+        
+        NSLayoutConstraint.activate(newButtonConstraints)
     }
     
 }
