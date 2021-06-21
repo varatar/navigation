@@ -32,4 +32,9 @@ class ProfileViewController: UIViewController {
         NSLayoutConstraint.activate(newButtonConstraints)
     }
     
+    override func viewWillLayoutSubviews() {
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.setHidesBackButton(true, animated: true)
+    }
+    
 }
