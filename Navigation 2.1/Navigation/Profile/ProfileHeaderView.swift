@@ -10,44 +10,56 @@ import UIKit
 
 class ProfileHeaderView: UIView {
 
-    private var statusText: String?
+    private var statusText = String()
     
-    @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var fullNameLabel: UILabel!
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var statusTextField: UITextField!
-    @IBOutlet weak var setStatusButton: UIButton!
-    
-    
-    //Создаем константы для их использования во фреймах
-    
-    private enum Constants {
-        static let sideInset: CGFloat = 16.0
-    }
-    
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-    }
-    
-    
-    override func awakeFromNib() {
-        
-        //Делаем настройки для изображения пользователя (круглая картинка)
+    private var avatarImageView: UIImageView = {
+        let avatarImageView = UIImageView()
         avatarImageView.layer.borderWidth = 3.0
-        avatarImageView.layer.masksToBounds = false
+        avatarImageView.image = UIImage(named: "myCat")
         avatarImageView.clipsToBounds = true
+        avatarImageView.layer.cornerRadius = 55
         avatarImageView.layer.borderColor = UIColor.white.cgColor
-        avatarImageView.layer.cornerRadius = avatarImageView.frame.size.height/2
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        //Делаем настройки кнопки showStatus
+        avatarImageView.toAutoLayout()
+        return avatarImageView
+    }()
+    
+    private var fullNameLabel: UILabel = {
+        let fullNameLabel = UILabel()
+        fullNameLabel.text = "Developer cat"
+        fullNameLabel.textColor = .black
+        fullNameLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        fullNameLabel.toAutoLayout()
+        return fullNameLabel
+    }()
+    
+    private var statusLabel: UILabel = {
+        let statusLabel = UILabel()
+        statusLabel.textColor = .gray
+        statusLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        statusLabel.toAutoLayout()
+        return statusLabel
+    }()
+    
+    private var statusTextField: UITextField = {
+        let statusTextField = UITextField()
+        statusTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        statusTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: statusTextField.frame.height))
+        statusTextField.leftViewMode = .always
+        statusTextField.textColor = .black
+        statusTextField.backgroundColor = .white
+        statusTextField.layer.cornerRadius = 12
+        statusTextField.layer.borderWidth = 1.0
+        statusTextField.layer.borderColor = UIColor.black.cgColor
+        statusTextField.clipsToBounds = true
+        statusTextField.toAutoLayout()
+        statusTextField.addTarget(self,
+                            action: #selector(statusTextChanged),
+                            for: .editingChanged)
+        return statusTextField
+    }()
+    
+    private var setStatusButton: UIButton = {
+        let setStatusButton = UIButton()
         setStatusButton.setTitle("Show status", for: .normal)
         setStatusButton.backgroundColor = .systemBlue
         setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
@@ -55,37 +67,55 @@ class ProfileHeaderView: UIView {
         setStatusButton.layer.shadowOpacity = 0.7
         setStatusButton.layer.shadowColor = UIColor.black.cgColor
         setStatusButton.layer.cornerRadius = 14
-        
-        //Добавляем обработчик событий для кнопки
+        setStatusButton.toAutoLayout()
         setStatusButton.addTarget(self,
                              action: #selector(buttonPressed),
                              for: .touchUpInside)
+        return setStatusButton
+    }()
+    
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        //Делаем настройки лейбла nickName
-        fullNameLabel.text = "Developer cat"
-        fullNameLabel.textColor = .black
-        fullNameLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        self.addSubViews(avatarImageView, fullNameLabel, statusLabel, statusTextField, setStatusButton)
         
-        //Делаем настройки лейбла currentStatus
-        statusLabel.textColor = .gray
-        statusLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        statusLabel.text = statusText
+        let constraints = [
+            avatarImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
+            avatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 110),
+            avatarImageView.widthAnchor.constraint(equalTo: avatarImageView.heightAnchor),
+            
+            fullNameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 27),
+            fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
+            fullNameLabel.heightAnchor.constraint(equalToConstant: 18),
+            
+            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 32),
+            setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
+            setStatusButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
+            
+            statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
+            statusTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -10),
+            statusTextField.heightAnchor.constraint(equalToConstant: 40),
+            
+            statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
+            statusLabel.bottomAnchor.constraint(equalTo: statusTextField.topAnchor, constant: -10),
+            statusLabel.heightAnchor.constraint(equalToConstant: 14)
         
-        //Делаем настройки для Текстфилда
-        statusTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        statusTextField.textColor = .black
-        statusTextField.backgroundColor = .white
-        statusTextField.layer.cornerRadius = 12
-        statusTextField.layer.borderWidth = 1.0
-        statusTextField.layer.borderColor = UIColor.black.cgColor
-        statusTextField.clipsToBounds = true
+        ]
         
-        //Добавляем обработчик событий для текстфилда
-        statusTextField.addTarget(self,
-                            action: #selector(statusTextChanged),
-                            for: .editingChanged)
+        NSLayoutConstraint.activate(constraints)
         
     }
+    
+    @available(*, unavailable)
+     required init?(coder: NSCoder) {
+         fatalError("init(coder:) has not been implemented")
+     }
+    
     
     //Добавляем наши odbc методы
     @objc func buttonPressed() {
@@ -93,13 +123,8 @@ class ProfileHeaderView: UIView {
     }
     
     @objc func statusTextChanged(_ textField: UITextField) {
-        if textField.text != "" {
-            statusText = textField.text
-        } else {
-            statusText = "No status"
-        }
+        statusText = statusTextField.text ?? "No status"
     }
     
-
     
 }
