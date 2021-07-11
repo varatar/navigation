@@ -12,90 +12,18 @@
         <!--Profile-->
         <scene sceneID="bRX-aC-Cpi">
             <objects>
-                <viewController id="Ca1-kw-dKJ" customClass="ProfileViewController" customModule="Navigation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="profileVC" id="Ca1-kw-dKJ" customClass="ProfileViewController" customModule="Navigation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="z6I-Co-0n3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5d-Hv-J02" customClass="ProfileHeaderView" customModule="Navigation" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="220"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kOV-ac-HGl">
-                                        <rect key="frame" x="16" y="154" width="382" height="50"/>
-                                        <color key="backgroundColor" red="1" green="0.88420634499999995" blue="0.65228690330000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="90S-Bm-KyO"/>
-                                        </constraints>
-                                        <state key="normal" title="setStatusButton">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jHS-U4-Jlo">
-                                        <rect key="frame" x="142" y="98" width="256" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="UN6-BJ-Pr9"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="myCat" translatesAutoresizingMaskIntoConstraints="NO" id="jzR-qc-aXc">
-                                        <rect key="frame" x="16" y="16" width="110" height="110"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="110" id="ix0-qX-Z0g"/>
-                                            <constraint firstAttribute="width" constant="110" id="vIa-4f-COt"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fullNameLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="exo-V2-5kh">
-                                        <rect key="frame" x="142" y="27" width="124.5" height="22"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="statusLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAT-RW-VEQ">
-                                        <rect key="frame" x="142" y="71" width="75" height="17"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="jHS-U4-Jlo" firstAttribute="top" secondItem="lAT-RW-VEQ" secondAttribute="bottom" constant="10" id="2yP-Yw-dYd"/>
-                                    <constraint firstAttribute="trailing" secondItem="jHS-U4-Jlo" secondAttribute="trailing" constant="16" id="6UM-vc-OMD"/>
-                                    <constraint firstItem="exo-V2-5kh" firstAttribute="top" secondItem="B5d-Hv-J02" secondAttribute="top" constant="27" id="8vC-mG-Obu"/>
-                                    <constraint firstItem="jzR-qc-aXc" firstAttribute="leading" secondItem="B5d-Hv-J02" secondAttribute="leading" constant="16" id="FJz-1i-6rU"/>
-                                    <constraint firstAttribute="trailing" secondItem="kOV-ac-HGl" secondAttribute="trailing" constant="16" id="JIW-yc-exH"/>
-                                    <constraint firstItem="kOV-ac-HGl" firstAttribute="leading" secondItem="B5d-Hv-J02" secondAttribute="leading" constant="16" id="L1q-ro-vpq"/>
-                                    <constraint firstAttribute="bottom" secondItem="kOV-ac-HGl" secondAttribute="bottom" constant="16" id="Uym-LT-l3y"/>
-                                    <constraint firstItem="lAT-RW-VEQ" firstAttribute="leading" secondItem="exo-V2-5kh" secondAttribute="leading" id="VAd-i5-yes"/>
-                                    <constraint firstItem="kOV-ac-HGl" firstAttribute="top" secondItem="jHS-U4-Jlo" secondAttribute="bottom" constant="16" id="WvP-Aq-0D2"/>
-                                    <constraint firstItem="jHS-U4-Jlo" firstAttribute="leading" secondItem="jzR-qc-aXc" secondAttribute="trailing" constant="16" id="gSC-a1-Bul"/>
-                                    <constraint firstItem="jzR-qc-aXc" firstAttribute="top" secondItem="B5d-Hv-J02" secondAttribute="top" constant="16" id="huL-0w-khq"/>
-                                    <constraint firstAttribute="height" constant="220" id="jaR-kT-kWw"/>
-                                    <constraint firstItem="exo-V2-5kh" firstAttribute="leading" secondItem="jzR-qc-aXc" secondAttribute="trailing" constant="16" id="ton-s3-h6Z"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="avatarImageView" destination="jzR-qc-aXc" id="GFM-LZ-egu"/>
-                                    <outlet property="fullNameLabel" destination="exo-V2-5kh" id="qYb-Jp-EVn"/>
-                                    <outlet property="setStatusButton" destination="kOV-ac-HGl" id="WZV-YK-E99"/>
-                                    <outlet property="statusLabel" destination="lAT-RW-VEQ" id="0OI-XW-zHe"/>
-                                    <outlet property="statusTextField" destination="jHS-U4-Jlo" id="acY-8P-ode"/>
-                                </connections>
-                            </view>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="FCL-IZ-fe8"/>
                         <color key="backgroundColor" systemColor="systemTealColor"/>
-                        <constraints>
-                            <constraint firstItem="FCL-IZ-fe8" firstAttribute="trailing" secondItem="B5d-Hv-J02" secondAttribute="trailing" id="0cN-j0-IyN"/>
-                            <constraint firstItem="B5d-Hv-J02" firstAttribute="top" secondItem="FCL-IZ-fe8" secondAttribute="top" id="21Q-og-KCg"/>
-                            <constraint firstItem="B5d-Hv-J02" firstAttribute="leading" secondItem="FCL-IZ-fe8" secondAttribute="leading" id="tig-lo-rUm"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="TPi-FS-zh0"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZwS-K6-ZGq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="768.11594202898561" y="196.875"/>
+            <point key="canvasLocation" x="1654" y="197"/>
         </scene>
         <!--Feed-->
         <scene sceneID="pR1-4r-6ob">
@@ -235,12 +163,28 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Ca1-kw-dKJ" kind="relationship" relationship="rootViewController" id="C4e-di-tzg"/>
+                        <segue destination="6bs-6s-aZw" kind="relationship" relationship="rootViewController" id="Idc-Mz-yxz"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y8b-38-THj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-142.02898550724638" y="196.875"/>
+        </scene>
+        <!--Log In View Controller-->
+        <scene sceneID="hrn-OU-7Em">
+            <objects>
+                <viewController id="6bs-6s-aZw" customClass="LogInViewController" customModule="Navigation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ntq-hx-8Hg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="E2j-Vn-bFL"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="cL2-di-fw5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7pR-0Y-RH9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="742" y="197"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
@@ -248,8 +192,10 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="house.fill" catalog="system" width="128" height="106"/>
-        <image name="myCat" width="150" height="112.5"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
