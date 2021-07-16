@@ -180,15 +180,35 @@
                         <viewLayoutGuide key="safeArea" id="E2j-Vn-bFL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="cL2-di-fw5"/>
+                    <navigationItem key="navigationItem" id="cL2-di-fw5">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="zdr-Sb-rwF"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7pR-0Y-RH9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="742" y="197"/>
         </scene>
+        <!--Photos-->
+        <scene sceneID="8Bl-Pv-Jkg">
+            <objects>
+                <viewController storyboardIdentifier="photosVC" id="n6t-RF-2HY" customClass="PhotosViewController" customModule="Navigation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sf7-jk-0Wh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="C0L-tb-9AD"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Photos" id="F3n-Ay-MKW">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="m5u-aP-dGl"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nPw-zG-f6Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2525" y="197"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="TpB-Ww-wCp"/>
+        <segue reference="QVy-hR-ryH"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="house.fill" catalog="system" width="128" height="106"/>
