@@ -65,6 +65,9 @@ extension PhotosViewController: UICollectionViewDataSource {
 
 
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
+    
+    private var baseInset: CGFloat { return 8 }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (collectionView.frame.width - baseInset * 4 ) / 3, height: (collectionView.frame.width - baseInset * 4) / 3)
     }
@@ -80,6 +83,4 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
-    
-    private var baseInset: CGFloat { return 8 }
 }

@@ -10,6 +10,9 @@ import UIKit
 
 class PhotosTableViewCell: UITableViewCell {
     
+    private var baseInset: CGFloat { return 8 }
+    private var sideInset: CGFloat { return 12 }
+    
     private let photosLabel: UILabel = {
         let photosLabel = UILabel()
         photosLabel.font = UIFont.systemFont(ofSize: 24.0, weight: .bold)
@@ -17,46 +20,6 @@ class PhotosTableViewCell: UITableViewCell {
         photosLabel.textColor = .black
         photosLabel.toAutoLayout()
         return photosLabel
-    }()
-    
-    private let firstPhoto: UIImageView = {
-        let firstPhoto = UIImageView()
-        firstPhoto.image = UIImage(named: "assassins")
-        firstPhoto.layer.cornerRadius = 6.0
-        firstPhoto.clipsToBounds = true
-        firstPhoto.contentMode = .scaleAspectFill
-        firstPhoto.toAutoLayout()
-        return firstPhoto
-    }()
-    
-    private let secondPhoto: UIImageView = {
-        let secondPhoto = UIImageView()
-        secondPhoto.image = UIImage(named: "cyberpunk")
-        secondPhoto.layer.cornerRadius = 6.0
-        secondPhoto.clipsToBounds = true
-        secondPhoto.contentMode = .scaleAspectFill
-        secondPhoto.toAutoLayout()
-        return secondPhoto
-    }()
-    
-    private let thirdPhoto: UIImageView = {
-        let thirdPhoto = UIImageView()
-        thirdPhoto.image = UIImage(named: "gow")
-        thirdPhoto.layer.cornerRadius = 6.0
-        thirdPhoto.clipsToBounds = true
-        thirdPhoto.contentMode = .scaleAspectFill
-        thirdPhoto.toAutoLayout()
-        return thirdPhoto
-    }()
-    
-    private let fourthPhoto: UIImageView = {
-        let fourthPhoto = UIImageView()
-        fourthPhoto.image = UIImage(named: "itTakesTwo")
-        fourthPhoto.layer.cornerRadius = 6.0
-        fourthPhoto.clipsToBounds = true
-        fourthPhoto.contentMode = .scaleAspectFill
-        fourthPhoto.toAutoLayout()
-        return fourthPhoto
     }()
     
     //Какую именно стрелку не указали, поэтому выбрал ту, которую нашел в интернете
@@ -68,15 +31,15 @@ class PhotosTableViewCell: UITableViewCell {
         return arrowLabel
     }()
     
-    private let photosStack: UIStackView = {
-        let stackView = UIStackView()
-        stackView.distribution = .fillEqually
-        stackView.axis = .horizontal
-        stackView.spacing = 8
-        stackView.alignment = .center
-        stackView.toAutoLayout()
-        return stackView
-    }()
+        private let photosStack: UIStackView = {
+            let stackView = UIStackView()
+            stackView.distribution = .fillEqually
+            stackView.axis = .horizontal
+            stackView.spacing = 8
+            stackView.alignment = .center
+            stackView.toAutoLayout()
+            return stackView
+        }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -93,17 +56,17 @@ class PhotosTableViewCell: UITableViewCell {
         
         contentView.addSubViews(photosLabel, arrowLabel, photosStack )
         
-        photosStack.addArrangedSubview(firstPhoto)
-        photosStack.addArrangedSubview(secondPhoto)
-        photosStack.addArrangedSubview(thirdPhoto)
-        photosStack.addArrangedSubview(fourthPhoto)
+        photosStack.addArrangedSubview(addPhoto(myImage: "assassins"))
+        photosStack.addArrangedSubview(addPhoto(myImage: "cyberpunk"))
+        photosStack.addArrangedSubview(addPhoto(myImage: "gow"))
+        photosStack.addArrangedSubview(addPhoto(myImage: "itTakesTwo"))
         
         contentView.backgroundColor = .white
         
         let constraints = [
             photosLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: sideInset),
             photosLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: sideInset),
-            
+        
             arrowLabel.centerYAnchor.constraint(equalTo: photosLabel.centerYAnchor),
             arrowLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -sideInset),
             arrowLabel.widthAnchor.constraint(equalToConstant: 30),
@@ -120,6 +83,15 @@ class PhotosTableViewCell: UITableViewCell {
         
     }
     
-    private var baseInset: CGFloat { return 8 }
-    private var sideInset: CGFloat { return 12 }
+//так как все мои картинки внутри стека идентичны, создам функцию, которая будет возвращать картинку
+    func addPhoto(myImage: String) -> UIImageView {
+        let photo = UIImageView()
+        photo.image = UIImage(named: myImage)
+        photo.layer.cornerRadius = 6.0
+        photo.clipsToBounds = true
+        photo.contentMode = .scaleAspectFill
+        photo.toAutoLayout()
+        return photo
+    }
+    
 }
