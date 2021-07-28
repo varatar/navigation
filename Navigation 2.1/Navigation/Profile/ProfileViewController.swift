@@ -14,13 +14,97 @@ class ProfileViewController: UIViewController {
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let cellId = "cellId"
     private let cellIdForPhotos = "cellIdForPhotos"
+    private let profileHeader = ProfileHeaderView()
+    
+    private let transparentView: UIView = {
+        let alphaView = UIView()
+        alphaView.alpha = 0.0
+        alphaView.backgroundColor = .white
+        alphaView.toAutoLayout()
+        return alphaView
+    }()
+    
+    private let closeButton: UIButton = {
+        let closeButton = UIButton()
+        closeButton.setBackgroundImage(UIImage (systemName: "clear"), for: .normal)
+        closeButton.addTarget(self, action: #selector(closeAvatar), for: .touchUpInside)
+        closeButton.toAutoLayout()
+        closeButton.alpha = 0.0
+        return closeButton
+    }()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.backBarButtonItem = UIBarButtonItem(
             title: "Back", style: .plain, target: nil, action: nil)
+        
         setupTableView()
+        setupAnimationView()
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(animation))
+        profileHeader.avatarImageView.addGestureRecognizer(tapRecognizer)
+        profileHeader.avatarImageView.isUserInteractionEnabled = true
+    }
+    
+    @objc func animation() {
+        animateOpenAvatar()
+    }
+    
+    @objc func closeAvatar() {
+        animateCloseAvatar()
+    }
+    
+    func animateOpenAvatar() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.profileHeader.avatarImageView.center = self.view.center
+            self.profileHeader.avatarImageView.transform = CGAffineTransform.init(scaleX: 0.99 , y: 0.99 )
+            self.profileHeader.avatarImageView.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.width)
+            self.profileHeader.avatarImageView.layer.cornerRadius = 0
+            self.transparentView.alpha = 0.7
+            self.profileHeader.transparentView.alpha = 0.7
+        }) {_ in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.closeButton.alpha = 1
+            })
+        }
+    }
+    
+    func animateCloseAvatar() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.closeButton.alpha = 0
+            
+        }, completion: {_ in
+            UIView.animate(withDuration: 0.5, animations: {
+                self.profileHeader.avatarImageView.frame = CGRect(x: 16, y: 16, width: 110, height: 110)
+                self.profileHeader.avatarImageView.transform = CGAffineTransform.init(scaleX: 1, y: 1)
+                self.profileHeader.avatarImageView.layer.cornerRadius = 55
+                self.transparentView.alpha = 0
+                self.profileHeader.transparentView.alpha = 0
+                
+            })
+        })
+    }
+    
+    func setupAnimationView() {
+        tableView.addSubview(transparentView)
+        view.addSubview(closeButton)
+        
+        let constraints = [
+            
+            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            closeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            closeButton.widthAnchor.constraint(equalToConstant: 30),
+            closeButton.heightAnchor.constraint(equalTo: closeButton.widthAnchor),
+            
+            transparentView.topAnchor.constraint(equalTo: view.topAnchor),
+            transparentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            transparentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            transparentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(constraints)
+        
     }
     
     func setupTableView() {
@@ -81,7 +165,7 @@ extension ProfileViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
-        case 0: let headerView = ProfileTableHeaderView()
+        case 0: let headerView = profileHeader
             return headerView
         default:
             return nil
