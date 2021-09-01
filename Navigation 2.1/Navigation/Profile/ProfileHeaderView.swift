@@ -12,7 +12,7 @@ class ProfileHeaderView: UIView {
 
     private var statusText = String()
     
-    private var avatarImageView: UIImageView = {
+        var avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
         avatarImageView.layer.borderWidth = 3.0
         avatarImageView.image = UIImage(named: "myCat")
@@ -21,6 +21,30 @@ class ProfileHeaderView: UIView {
         avatarImageView.layer.borderColor = UIColor.white.cgColor
         avatarImageView.toAutoLayout()
         return avatarImageView
+    }()
+    
+     var transparentView: UIView = {
+        let alphaView = UIView()
+        alphaView.alpha = 0.0
+        alphaView.backgroundColor = .white
+        alphaView.toAutoLayout()
+        return alphaView
+    }()
+    
+    var closeButton: UIButton = {
+        let closeButton = UIButton()
+        closeButton.setTitle("Show status", for: .normal)
+        closeButton.backgroundColor = .systemBlue
+        closeButton.layer.shadowOffset = CGSize(width: 4, height: 4)
+        closeButton.layer.shadowRadius = 4.0
+        closeButton.layer.shadowOpacity = 0.7
+        closeButton.layer.shadowColor = UIColor.black.cgColor
+        closeButton.layer.cornerRadius = 14
+        closeButton.toAutoLayout()
+        closeButton.addTarget(self,
+                             action: #selector(buttonPressed),
+                             for: .touchUpInside)
+        return closeButton
     }()
     
     private var fullNameLabel: UILabel = {
@@ -78,7 +102,7 @@ class ProfileHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.addSubViews(avatarImageView, fullNameLabel, statusLabel, statusTextField, setStatusButton)
+        self.addSubViews( fullNameLabel, statusLabel, statusTextField, setStatusButton, transparentView, avatarImageView)
         
         let constraints = [
             avatarImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
@@ -103,8 +127,12 @@ class ProfileHeaderView: UIView {
             
             statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
             statusLabel.bottomAnchor.constraint(equalTo: statusTextField.topAnchor, constant: -10),
-            statusLabel.heightAnchor.constraint(equalToConstant: 14)
-        
+            statusLabel.heightAnchor.constraint(equalToConstant: 14),
+            
+            transparentView.topAnchor.constraint(equalTo: self.topAnchor),
+            transparentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            transparentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            transparentView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ]
         
         NSLayoutConstraint.activate(constraints)
